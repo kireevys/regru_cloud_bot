@@ -3,3 +3,4 @@
 venv
 .idea
 .DC_Store
+__pycache__
