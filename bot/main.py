@@ -37,14 +37,14 @@ def start(update: Update, _: CallbackContext):
 
 def down(update: Update, _: CallbackContext):
     logger.info(f"Stop by {update.effective_user.name}")
-    # regru_api.client.actions(regru_api.Action.STOP)
+    regru_api.client.actions(regru_api.Action.STOP)
     info = regru_api.RegletInfo(regru_api.client.info())
     update.message.reply_markdown_v2(fr"Тушу сервер {info.ip()}, сэр")
 
 
 def up(update: Update, _: CallbackContext):
     logger.info(f"Stop by {update.effective_user.name}")
-    # regru_api.client.actions(regru_api.Action.START)
+    regru_api.client.actions(regru_api.Action.START)
     info = regru_api.RegletInfo(regru_api.client.info())
     message = fr"""Сервер {info.ip()} запускается 🕓, сэр\. Проверьте статус через несколько минут"""
     update.message.reply_markdown_v2(message)
