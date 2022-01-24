@@ -8,6 +8,7 @@ load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 REGRU_TOKEN = os.getenv("REGRU_TOKEN")
 MASTER_GROUP_ID = os.getenv("MASTER_GROUP_ID")
+REGLET_ID = os.getenv("REGLET_ID")
 
 LOGGING = {
     "version": 1,

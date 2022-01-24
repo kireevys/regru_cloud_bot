@@ -1,6 +1,7 @@
 .env
-*.log
+*.log.*
 venv
 .idea
 .DC_Store
 __pycache__
+.gitignore

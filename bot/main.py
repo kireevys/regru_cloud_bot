@@ -37,26 +37,28 @@ def start(update: Update, _: CallbackContext):
 
 def down(update: Update, _: CallbackContext):
     logger.info(f"Stop by {update.effective_user.name}")
-    regru_api.client.actions(regru_api.Action.STOP)
-    info = regru_api.RegletInfo(regru_api.client.info())
-    update.message.reply_markdown_v2(fr"Тушу сервер {info.ip()}, сэр")
+    regru_api.client.actions(settings.REGLET_ID, regru_api.Action.STOP)
+    info = regru_api.RegletInfo(regru_api.client.info(settings.REGLET_ID))
+    update.message.reply_markdown_v2(fr"Тушу сервер {info.ip}, сэр")
 
 
 def up(update: Update, _: CallbackContext):
-    logger.info(f"Stop by {update.effective_user.name}")
-    regru_api.client.actions(regru_api.Action.START)
-    info = regru_api.RegletInfo(regru_api.client.info())
-    message = fr"""Сервер {info.ip()} запускается 🕓, сэр\. Проверьте статус через несколько минут"""
+    logger.info(f"Up by {update.effective_user.name}")
+    regru_api.client.actions(settings.REGLET_ID, regru_api.Action.START)
+    info = regru_api.RegletInfo(regru_api.client.info(settings.REGLET_ID))
+    message = fr"""Сервер {info.ip} запускается 🕓, сэр\. Проверьте статус через несколько минут"""
     update.message.reply_markdown_v2(message)
 
 
 def status(update: Update, _: CallbackContext):
     logger.info(f"Status by {update.effective_user.name}")
-    result = regru_api.client.info()
+    result = regru_api.client.info(settings.REGLET_ID)
+
     info = regru_api.RegletInfo(result)
-    ip = info.ip()
-    status = info.status()
-    message = fr"""Сервер {ip} {status.desc} {status.emoji}, сэр"""
+
+    message = (
+        fr"""Сервер {info.ip} {info.name} {info.status.desc} {info.status.emoji}, сэр"""
+    )
     update.message.reply_markdown_v2(message, protect_content=True)
 
 

@@ -1,3 +1,4 @@
+# Документация от рег.ру
 # https://developers.cloudvps.reg.ru/reglets/index.html
 from enum import Enum
 
@@ -44,25 +45,35 @@ class RegClient:
     def reglets(self):
         return self._get("reglets")
 
-    def info(self):
-        return self._get("reglets/1365929")
+    def info(self, reglet_id: int):
+        return self._get(f"reglets/{reglet_id}")
 
-    def actions(self, action: Action):
-        return self._post("reglets/1365929/actions", payload={"type": action.value})
+    def actions(self, reglet_id: int, action: Action):
+        return self._post(
+            f"reglets/{reglet_id}/actions", payload={"type": action.value}
+        )
 
 
 class RegletInfo:
     def __init__(self, info: dict):
         self.info = info
 
+    @property
     def status(self) -> Statuses:
         return Statuses[self.info["reglet"]["status"]]
 
+    @property
     def ip(self) -> str:
         return self.info["reglet"]["ip"].replace(".", "\.")
+
+    @property
+    def name(self) -> str:
+        return self.info["reglet"]["name"]
+
 
 
 client = RegClient()
 
 if __name__ == "__main__":
-    print(client.info())
+    s = {1: {"key": 123}}
+    print(s[1]["key"])
