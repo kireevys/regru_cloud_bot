@@ -5,3 +5,5 @@ venv
 .DC_Store
 __pycache__
 .gitignore
+*.log
+test.py
